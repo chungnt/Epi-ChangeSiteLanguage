@@ -1,0 +1,55 @@
+﻿@using System.Web.Mvc.Html
+@using EPiServer.DataAbstraction
+@using EPiServer.Framework.Web.Resources
+@using EPiServer.Web
+@inherits System.Web.Mvc.WebViewPage<ChangeSiteLang.ViewModels.SiteLangViewModel>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Change Site Language</title>
+    @Html.Raw(ClientResources.RenderResources("Dojo", new[] { ClientResourceType.Style }))
+    @Html.Raw(ClientResources.RenderResources("ShellCore", new[] { ClientResourceType.Style }))
+    @Html.Raw(ClientResources.RenderResources("ShellCoreLightTheme"))
+    <link href="~/App_Themes/Default/Styles/system.css" type="text/css" rel="stylesheet" />
+    <link href="~/App_Themes/Default/Styles/ToolButton.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="epi-contentContainer epi-padding">
+    <div class="epi-contentArea">
+        <select class="EP-requiredField required" id="siteName" name="SiteName">
+            @foreach (SiteDefinition site in (List<SiteDefinition>)ViewBag.Sites)
+            {
+                <option value="@site.Id">@site.Name</option>
+            }
+        </select>
+        <select class="EP-requiredField required" id="lang" name="LanguageBranch">
+            @foreach (LanguageBranch lang in (List<LanguageBranch>)ViewBag.LanguageBranches)
+            {
+                <option value="@lang.LanguageID">@lang.Name</option>
+            }
+        </select>
+        <span class="epi-cmsButton">
+            <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Save" 
+                   type="button" name="btnChange" id="btnChange" value="Change" title="Change"
+                   onmouseover="EPi.ToolButton.MouseDownHandler(this)"
+                   onmouseout="EPi.ToolButton.ResetMouseDownHandler(this)" />
+        </span>
+        @using (Html.BeginForm("ChangeSiteLanguage", "ChangeSiteLang"))
+        {
+
+        }
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            
+        </div>
+    </div>
+</div>
+</body>
+</html>
